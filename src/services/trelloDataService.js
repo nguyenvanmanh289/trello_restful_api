@@ -1,12 +1,13 @@
-const trelloDataModel = require("../model/trellodata.js");
+const trelloDataModel = require("../model/boardModel.js");
 const modelAccount = require("../model/accountModel.js");
 var uniqid = require('uniqid'); 
 
-const CREATER = new trelloDataModel();
+
 
 class trelloDataBoard{
     create = async (username,dataBoard)=>{
         try{
+            let CREATER = new trelloDataModel();
             let id = uniqid();
             CREATER.boardId = id,
             CREATER.boardTitle = dataBoard.title;
@@ -78,20 +79,7 @@ class trelloDataBoard{
 
 }
 
-class trelloDataList{
-    create = async ()=>{
 
-    }
-    read = async ()=>{
-
-    }
-    update = async ()=>{
-
-    }
-    delete = async ()=>{
-
-    }
-}
 
 class trelloDataCart{
     create = async ()=>{
@@ -109,8 +97,5 @@ class trelloDataCart{
 }
 
 
-module.exports = {
-    trelloDataBoarder :new trelloDataBoard,
-    l :new trelloDataList,
-    c :new trelloDataCart
-};
+module.exports = new trelloDataBoard
+    

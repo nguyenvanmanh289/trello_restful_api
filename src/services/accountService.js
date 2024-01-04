@@ -1,5 +1,5 @@
 const modelAccount = require("../model/accountModel");
-const userAccount = new modelAccount();
+
 
 class accountService{
 
@@ -26,6 +26,7 @@ class accountService{
                 return false
             }
             else {
+                let userAccount = new modelAccount();
                 userAccount.username = username;
                 userAccount.password = password;
                 await userAccount.save();
