@@ -38,7 +38,7 @@ class trelloDataBoardCon{
     updateBoard = async (req,res,next)=>{
         try{
             let newdata = {
-                boardTitle:req.body.boardTitle
+                boardTitle:req.body.title
             }
             let result = await trelloDataBoarder.update(req.body.boardId,newdata);
             if(result){

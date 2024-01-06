@@ -14,7 +14,7 @@ verifyToken =  (req, res, next) => {
         req.username = decoded.username;
         req.password = decoded.password;
         console.log(req.username,req.password)
-        
+    
     });
     next();
 };

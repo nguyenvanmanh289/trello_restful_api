@@ -38,7 +38,7 @@ class trelloDataListCon{
     updateList = async (req,res,next)=>{
         try{
             let newdata = {
-                listTitle:req.body.listTitle
+                listTitle:req.body.title
             }
             let result = await trelloDataLister.update(req.body.listId,newdata);
             if(result){

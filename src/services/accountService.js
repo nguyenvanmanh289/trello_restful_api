@@ -20,7 +20,7 @@ class accountService{
 
     async create({username,password}){
         try {
-            let isfound = await modelAccount.find({ username: username, password: password })
+            let isfound = await modelAccount.find({ username: username })
             console.log(isfound.length)
             if (isfound.length > 0) {
                 return false

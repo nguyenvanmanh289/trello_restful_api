@@ -1,13 +1,13 @@
 const Joi = require("joi");
 
-//khuon mau de validate data login
+//khuon mau de validate data list
 const ValidationSchema = Joi.object({
-    username: Joi.string().alphanum().required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required()
+    title: Joi.string().max(40).required(),
+    boardId: Joi.string().max(40).required()
 });
 
 // Middleware kiểm tra và xác thực dữ liệu
-const validateUserData = (req, res, next) => {
+const validateListC = (req, res, next) => {
     const { error, value } =ValidationSchema.validate(req.body, {abortEarly: false});
     console.log(error)
     if (error) {
@@ -20,4 +20,4 @@ const validateUserData = (req, res, next) => {
     next();
 };
 
-module.exports = validateUserData;
+module.exports = validateListC;

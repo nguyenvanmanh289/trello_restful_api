@@ -3,7 +3,7 @@ const dataSchema = new mongoose.Schema({
     listId : String,
     listTitle : String,
     listDate : Date,
-    Cards : Array
+    cards : Array
 })
 
 const listModel = mongoose.model("listData",dataSchema);

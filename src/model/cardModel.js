@@ -4,9 +4,12 @@ const dataSchema = new mongoose.Schema({
     cardTitle : String,
     cardDes : String,
     cardDate : Date,
-    cardDueDate : Date,
-    cardAttachment : Buffer,
-    cardMember : Array
+    cardDueDate : String,
+    cardAttachment : {
+        originalname: String,
+        buffer:Buffer
+    },
+    cardMember : String
 })
 
 const cardModel = mongoose.model("cardData",dataSchema);

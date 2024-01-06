@@ -18,7 +18,7 @@ class trelloDataList{
                 listId : id,
                 listTitle : dataList.title,
                 boardDate : new Date(),
-                Cards : []
+                cards : []
            };
         }
         catch(err){
