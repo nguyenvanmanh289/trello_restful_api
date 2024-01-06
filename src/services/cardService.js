@@ -1,5 +1,7 @@
 const listModel = require("../model/listModel.js");
 const cardModel = require("../model/cardModel.js");
+const boardModel = require("../model/boardModel.js");
+const accountModel = require("../model/accountModel.js");
 
 var uniqid = require('uniqid'); 
 
@@ -51,11 +53,10 @@ class trelloDataCard{
             if(info.cards.length == 0){
                 return false
             }
-            await Promise.all(info.cards.map(async (listId, index) => {
-                cards.push(await listModel.findOne({ listId: listId }));
+            await Promise.all(info.cards.map(async (cardId, index) => {
+                cards.push(await cardModel.findOne({ cardId: cardId }));
                 console.log(index);
-            }));
-            console.log(cards)
+            }))
             return cards;
         }
         catch(err){
@@ -92,6 +93,16 @@ class trelloDataCard{
             
         }
     };
+
+
+    const 
+    readOnly =  async(username,nameCard) =>{
+        try {
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
 }
 
 module.exports = new trelloDataCard;
