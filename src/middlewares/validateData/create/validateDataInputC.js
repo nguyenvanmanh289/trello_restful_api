@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 //khuon mau de validate data login
 const ValidationSchema = Joi.object({
-    username: Joi.string().alphanum().required(),
+    username: Joi.string().alphanum().min(8).max(40).required(),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required()
 });
 

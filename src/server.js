@@ -15,7 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const upload = multer();
-app.use(upload.any());
+var cpUpload = upload.fields([
+    { name: 'file', maxCount: 1 },
+    { name: 'listfile', maxCount: 8 },
+  ]);
+app.use(cpUpload);
 
 app.use(router);
 

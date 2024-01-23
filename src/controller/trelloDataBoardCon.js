@@ -1,4 +1,4 @@
-const trelloDataBoarder = require("../services/trelloDataService.js")
+const trelloDataBoarder = require("../services/boardService.js")
 
 class trelloDataBoardCon{
     createBoard = async (req,res,next)=>{

@@ -29,7 +29,7 @@ class Account{
     async update(req,res,next){
         try {
             let logined = {
-                username:req.username ,
+                username:req.username,
                 password: req.password
             }
             let result = await accountService.update(logined, req.body);
@@ -85,6 +85,7 @@ class Account{
                 username:req.username ,
                 password: req.password
             }
+            console.log(logined)
             let result = await accountService.delete(logined);
             if(result){
                 res.status(200).json({

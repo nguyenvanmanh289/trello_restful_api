@@ -2,13 +2,15 @@ const listModel = require("../model/listModel.js");
 const boardModel = require("../model/boardModel.js");
 
 var uniqid = require('uniqid'); 
+const cardModel = require("../model/cardModel.js");
 
 class trelloDataList{
     create = async (boardId , dataList)=>{
         try{
             let CREATER = new listModel();
-            let id = uniqid();
-            CREATER.listId = id,
+            let id = uniqid("list-");
+            CREATER.listId = id;
+            CREATER.listInBoardId = boardId;
             CREATER.listTitle = dataList.title;
             CREATER.listDate = new Date();
             CREATER.lists = [];
@@ -56,6 +58,8 @@ class trelloDataList{
     }
     delete = async (boardId, listId) => {
         try {
+            await cardModel.deleteMany({cardInListId : listId});
+            
             const accountUpdateResult = await boardModel.updateOne(
                 { boardId: boardId },
                 { $pull: { lists: listId } }

@@ -6,7 +6,7 @@ const ValidationSchema = Joi.object({
     describe: Joi.string().max(40).required(),
     duedate :Joi.string().required(),
     member :Joi.string().min(8).max(100).required(),
-    listId :Joi.string().alphanum().required()
+    listId :Joi.string().required()
 });
 
 // Middleware kiểm tra và xác thực dữ liệu

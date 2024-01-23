@@ -2,8 +2,8 @@ const Joi = require("joi");
 
 //khuon mau de validate data list
 const ValidationSchema = Joi.object({
-    boardId: Joi.string().alphanum().min(8).max(40).required(),
-    listId: Joi.string().alphanum().min(8).max(40).required()
+    boardId: Joi.string().min(8).max(40).required(),
+    listId: Joi.string().min(8).max(40).required()
 });
 
 // Middleware kiểm tra và xác thực dữ liệu

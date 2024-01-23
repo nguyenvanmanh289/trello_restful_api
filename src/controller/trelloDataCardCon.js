@@ -3,7 +3,8 @@ const trelloDataCarder = require("../services/CardService.js");
 class trelloDataCardCon{
     createCard = async (req,res,next)=>{
         try{
-            let fileob = req.files[0];
+            console.log("==================",req.files)
+            let fileob = req.files["file"][0];
             let body = req.body;
             let listId = req.body.listId;
 

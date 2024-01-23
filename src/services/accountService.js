@@ -1,5 +1,7 @@
 const modelAccount = require("../model/accountModel");
-
+const boardModel = require("../model/boardModel");
+const listModel = require("../model/listModel");
+const cardModel = require("../model/cardModel");
 
 class accountService{
 
@@ -53,6 +55,43 @@ class accountService{
     }
     async delete(logined){
         try {
+            //delete boards in some user
+            let acc = await modelAccount.findOne(logined);
+            console.log("============",acc)
+            let boardArrId = acc.boardId;
+            if(boardArrId.length>0){
+                await Promise.all(boardArrId.map(async (boardId)=>{
+                try {
+                    let board = await boardModel.findOne({ boardId: boardId });
+                    let listArrId = board.lists;
+                    if (listArrId.length > 0) {
+                        await Promise.all(listArrId.map(async (listId) => {
+                            try {
+                                //delete all card in some list then delete this list
+                                await cardModel.deleteMany({ cardInListId: listId });
+                                await listModel.deleteOne({ listId: listId });
+                            }
+                            catch (err) {
+                                console.log(err);
+                                throw err;
+                            }
+                        }))
+                    }
+                    
+                    await boardModel.deleteMany({boardInAcc : logined.username});
+
+                }
+                catch(err){
+                    console.log(err);
+                    throw err;
+                }
+            }))
+            }
+            
+
+
+
+
             let isfound = await modelAccount.deleteOne(logined);
             if (isfound.deletedCount === 1) {
                 return (true)

@@ -9,16 +9,17 @@ class trelloDataCard{
     create = async (listId,fileob,dataCard)=>{
         try{
 
-            console.log("dataCrd " ,dataCard)
-            console.log("file ",fileob)
+            // console.log("dataCrd " ,dataCard)
+            // console.log("file ",fileob)
             let fileobject = {
                 originalname:fileob.originalname,
                 buffer : fileob.buffer
             }
 
             let CREATER = new cardModel();
-            let id = uniqid();
+            let id = uniqid("card-");
             CREATER.cardId = id;
+            CREATER.cardInListId = listId;
             CREATER.cardTitle = dataCard.title;
             CREATER.cardDes = dataCard.describe;
             CREATER.cardDueDate = dataCard.duedate;
@@ -27,7 +28,7 @@ class trelloDataCard{
             CREATER.cardMember = dataCard.member;
             await CREATER.save();
 
-            console.log("listId ",listId);
+            // console.log("listId ",listId);
           let checkList = await listModel.updateOne({ listId: listId }, { $push: { cards: id } });
           if(checkList.modifiedCount == 0) return false;
           return {
@@ -49,13 +50,13 @@ class trelloDataCard{
         try {
             let cards = [];
             let info = await listModel.findOne( {listId : listId} );
-            console.log(info.cards , info.cards.length)
+            // console.log(info.cards , info.cards.length)
             if(info.cards.length == 0){
                 return false
             }
             await Promise.all(info.cards.map(async (cardId, index) => {
                 cards.push(await cardModel.findOne({ cardId: cardId }));
-                console.log(index);
+                // console.log(index);
             }))
             return cards;
         }

@@ -8,8 +8,9 @@ class trelloDataBoard{
     create = async (username,dataBoard)=>{
         try{
             let CREATER = new trelloDataModel();
-            let id = uniqid();
-            CREATER.boardId = id,
+            let id = uniqid("board-");
+            CREATER.boardId = id;
+            CREATER.boardInAcc = username;
             CREATER.boardTitle = dataBoard.title;
             CREATER.boardDate = new Date();
             CREATER.lists = [];
@@ -57,6 +58,23 @@ class trelloDataBoard{
     }
     delete = async (username, boardId) => {
         try {
+
+            let board = await boardModel.findOne({ boardId: boardId });
+            let listArrId = board.lists;
+            if (listArrId.length > 0) {
+                await Promise.all(listArrId.map(async (listId) => {
+                    try {
+                        //delete all card in some list then delete this list
+                        await cardModel.deleteMany({ cardInListId: listId });
+                        await listModel.deleteOne({ listId: listId });
+                    }
+                    catch (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                }))
+            }
+
             console.log(username , boardId);
             const accountUpdateResult = await modelAccount.updateOne(
                 { username: username },
@@ -77,23 +95,6 @@ class trelloDataBoard{
         }
     };
 
-}
-
-
-
-class trelloDataCart{
-    create = async ()=>{
-
-    }
-    read = async ()=>{
-
-    }
-    update = async ()=>{
-
-    }
-    delete = async ()=>{
-
-    }
 }
 
 

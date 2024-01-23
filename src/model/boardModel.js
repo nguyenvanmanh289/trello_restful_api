@@ -1,6 +1,7 @@
 const  mongoose  = require("mongoose");
 const dataSchema = new mongoose.Schema({
     boardId : String,
+    boardInAcc : String,
     boardTitle : String,
     boardDate : Date,
     lists : Array
