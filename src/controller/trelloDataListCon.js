@@ -1,4 +1,4 @@
-const trelloDataLister = require("../services/ListService.js");
+const trelloDataLister = require("../services/listService.js");
 
 class trelloDataListCon{
     createList = async (req,res,next)=>{

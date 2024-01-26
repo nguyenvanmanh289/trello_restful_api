@@ -1,4 +1,4 @@
-const trelloDataCarder = require("../services/CardService.js");
+const trelloDataCarder = require("../services/cardService.js");
 
 class trelloDataCardCon{
     createCard = async (req,res,next)=>{
@@ -30,7 +30,7 @@ class trelloDataCardCon{
         let cards = await trelloDataCarder.read(req.body.listId);
         if(cards){
             res.status(200).json({
-                message : "danh sach : ",
+                message : `danh sach có ${cards.length}: `,
                 cards : cards
             })
         }
@@ -52,10 +52,10 @@ class trelloDataCardCon{
                 newdata.cardDes = req.body.describe;
             }
             
-            if((req.files[0].originalname).length > 0){
+            if((Object.keys(req.files).length > 0)){
                 newdata.cardAttachment = {
-                    originalname : req.files[0].originalname,
-                    buffer:req.files[0].buffer
+                    originalname : req.files["file"][0].originalname,
+                    buffer:req.files["file"][0].buffer
                 }
             }
             if(req.body.member){
