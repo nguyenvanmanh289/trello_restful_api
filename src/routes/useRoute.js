@@ -57,5 +57,6 @@ router.get("/Cards",verifyToken,validateCardR,dataCard.readCard);
 router.post("/createCard",verifyToken,validateCardC,dataCard.createCard);
 router.put("/updateCard",verifyToken,validateCardU,dataCard.updateCard);
 router.delete("/deleteCard",verifyToken,validateCardD,dataCard.deleteCard);
+router.get("/findCard",verifyToken,dataCard.readOnly)
 
 module.exports = router;

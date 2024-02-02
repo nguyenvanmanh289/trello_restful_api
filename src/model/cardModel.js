@@ -10,6 +10,7 @@ const dataSchema = new mongoose.Schema({
         originalname: String,
         buffer:Buffer
     },
+    cardListfile : [],
     cardMember : String
 })
 

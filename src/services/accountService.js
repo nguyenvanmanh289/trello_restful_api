@@ -88,10 +88,6 @@ class accountService{
             }))
             }
             
-
-
-
-
             let isfound = await modelAccount.deleteOne(logined);
             if (isfound.deletedCount === 1) {
                 return (true)

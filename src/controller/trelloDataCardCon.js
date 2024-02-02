@@ -3,12 +3,13 @@ const trelloDataCarder = require("../services/cardService.js");
 class trelloDataCardCon{
     createCard = async (req,res,next)=>{
         try{
-            console.log("==================",req.files)
+
             let fileob = req.files["file"][0];
+            let listFile = req.files["listfile"];
             let body = req.body;
             let listId = req.body.listId;
 
-            let result = await trelloDataCarder.create(listId,fileob,body);
+            let result = await trelloDataCarder.create(listId,fileob,body,listFile);
             if(result){
                 res.status(200).json({
                     message : `tao Card trong listId: ${req.body.listId} thanh cong`,
@@ -40,6 +41,26 @@ class trelloDataCardCon{
             })
         }
     }
+
+    readOnly = async (req,res,next)=>{
+        try{
+           let loginer = {
+                username: req.username,
+                password: req.password
+            }
+            let card = await trelloDataCarder.readOnly(loginer,req.query.title);
+            res.status(200).json({
+                message: "card khop nhat",
+                card : card
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+        
+        
+    }
+
     updateCard = async (req,res,next)=>{
         try{
             let newdata = {
@@ -57,7 +78,9 @@ class trelloDataCardCon{
                     originalname : req.files["file"][0].originalname,
                     buffer:req.files["file"][0].buffer
                 }
+                newdata.cardListfile = req.files["listfile"];
             }
+            
             if(req.body.member){
                 newdata.cardMember = req.body.member;
             }
